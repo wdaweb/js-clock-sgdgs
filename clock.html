@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+
+    .bgbox {
+      height: 100px;
+      width: 360px;
+      position: relative;
+      background: linear-gradient(135deg, red, lightgreen, darkblue);
+      border-radius: 10px;
+      animation: flash 3s linear infinite;
+    }
+
+    .bgbox .box,
+    .bgbox span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .bgbox .box {
+      z-index: 999;
+      height: 85px;
+      width: 345px;
+      background: #1b1b1b;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .box #time {
+      line-height: 85px;
+      color: #fff;
+      font-size: 50px;
+      font-weight: 600;
+      background: linear-gradient(135deg, red, lightgreen, darkblue);
+      animation: flash 3s linear infinite;
+    }
+
+    @keyframes flash {
+      100% {
+        filter: hue-rotate(360deg);
+      }
+    }
+
+    .bgbox span {
+      height: 100%;
+      width: 100%;
+      border-radius: 10px;
+      background: inherit;
+    }
+
+    .bgbox span:nth-child(1) {
+      filter: blur(40px);
+    }
+
+    .bgbox span:nth-child(2) {
+      filter: blur(50px);
+    }
+  </style>
+</head>
+<body>
+  <div class="bgbox">
+    <div class="box">
+      <div id="time"></div>
+    </div>
+    <span></span>
+    <span></span>
+  </div>
+  <script>
+    setInterval(() => {
+      const time = document.querySelector(".box #time");
+      let date = new Date();
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      let seconds = date.getSeconds();
+      let mh = "AM";
+      if (hours > 12) {
+        mh = "PM";
+        hours = hours - 12;
+      }
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+      time.textContent = hours + ":" + minutes + ":" + seconds + " " + mh;
+    });
+  </script>
+</body>
+</html>
